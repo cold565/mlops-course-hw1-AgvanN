@@ -30,22 +30,23 @@ def main() -> None:
     params = load_params()
     prompt = params["bench"]["prompt"]
 
-    # TODO: разделить замеры. Сейчас в одном таймере и загрузка, и генерация.
     t0 = time.perf_counter()
     tokenizer, model = load_model(params)
+    load_time = time.perf_counter() - t0
 
-    # TODO: добавить прогрев перед измерением.
+    for _ in range(params["bench"]["warmup_runs"]):
+        generate(tokenizer, model, params, prompt)
+
     speeds = []
     for _ in range(params["bench"]["measure_runs"]):
+        t = time.perf_counter()
         _, n_tokens = generate(tokenizer, model, params, prompt)
-        elapsed = time.perf_counter() - t0
+        elapsed = time.perf_counter() - t
         speeds.append(n_tokens / elapsed)
-
-    load_time = 0.0
 
     # Медиана устойчивее среднего к одиночному выбросу.
     report = {
-        "model": "Qwen/Qwen3-0.6B",
+        "model": params["model"]["name"],
         "device": str(model.device),
         "dtype": params["model"]["dtype"],
         "load_time_sec": round(load_time, 2),
