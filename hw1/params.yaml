@@ -1,7 +1,7 @@
 # Единственное место, где живёт имя модели.
 # Менять модель под своё железо нужно ЗДЕСЬ, а не в коде.
 model:
-  name: "HuggingFaceTB/SmolLM2-135M-Instruct"
+  name: "Qwen/Qwen3-0.6B"
   dtype: "bfloat16"
   device: "auto"            # auto | cpu | cuda | mps
 
