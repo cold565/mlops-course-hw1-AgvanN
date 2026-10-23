@@ -1,0 +1,9 @@
+{
+  "version": "v2",
+  "rows_scanned": 3037,
+  "rows_written": 2000,
+  "dropped_topic_filter": 1037,
+  "topics_filter": 5,
+  "system_prompt_variants": 5,
+  "seconds": 1.71
+}

@@ -1,0 +1,233 @@
+schema: '2.0'
+stages:
+  collect:
+    cmd: python -m src.collect
+    deps:
+    - path: src/collect.py
+      hash: md5
+      md5: 1e366d839d31524d47e72c936440a6c5
+      size: 3367
+      isexec: true
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+      isexec: true
+    params:
+      params.yaml:
+        collect:
+          version: v2
+          n_rows: 1500
+          sources:
+            v1:
+            - ../../datasets/nmo/sft_single/train/0000.parquet
+            v2:
+            - ../../datasets/nmo/sft_single/train/0000.parquet
+            - ../../datasets/nmo/sft_single/train/0001.parquet
+          verify_answer_index: false
+          system_prompts:
+          - Ты — полезный ИИ-ассистент. Отвечай на вопросы пользователя подробно
+            и вежливо.
+          - Ты интеллектуальный помощник. Твоя задача — давать точные, 
+            развернутые и структурированные ответы.
+          - Пользователь задает вопрос или дает инструкцию. Выполни задачу 
+            максимально качественно и понятно.
+          - Ты экспертная языковая модель. Отвечай на вопросы прямо, без лишних 
+            вступлений, используя предоставленный контекст.
+          - Твоя задача — помочь пользователю. Будь краток, но точен, и 
+            предоставляй релевантную информацию.
+        paths.metrics_collect: metrics/collect.json
+        paths.raw: data/raw.jsonl
+    outs:
+    - path: data/raw.jsonl
+      hash: md5
+      md5: b25c608d580a91b4692d63494771df5e
+      size: 2091864
+      isexec: true
+  clean:
+    cmd: python -m src.clean
+    deps:
+    - path: data/raw.jsonl
+      hash: md5
+      md5: b25c608d580a91b4692d63494771df5e
+      size: 2091864
+      isexec: true
+    - path: src/clean.py
+      hash: md5
+      md5: bf2d9ba4c71606b5c5d1697a1ca045a5
+      size: 4093
+      isexec: true
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+      isexec: true
+    - path: src/dedup.py
+      hash: md5
+      md5: f738f7ae19ac93464415e8f0f70f40a9
+      size: 1598
+      isexec: true
+    - path: src/pii.py
+      hash: md5
+      md5: 54de6f3690578d83cfc17094d2d2aa7a
+      size: 2397
+      isexec: true
+    - path: src/schema.py
+      hash: md5
+      md5: ad834fcb5caa483d3d5d5bfabb433cc0
+      size: 3054
+      isexec: true
+    - path: src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+      isexec: true
+    params:
+      params.yaml:
+        clean:
+          min_user_chars: 10
+          max_user_chars: 4000
+          min_assistant_chars: 10
+          near_dup:
+            enabled: true
+            shingle_words: 4
+            num_perm: 64
+            threshold: 0.85
+          pii:
+            enabled: true
+        paths.clean: data/clean.jsonl
+    outs:
+    - path: data/clean.jsonl
+      hash: md5
+      md5: 52cfb8a28f39dc2e5c03292b5d079dd8
+      size: 1945587
+      isexec: true
+    - path: metrics/clean.json
+      hash: md5
+      md5: 425ade94924b7fb75643766d8108f540
+      size: 448
+      isexec: true
+  diversity:
+    cmd: python -m src.diversity
+    deps:
+    - path: data/clean.jsonl
+      hash: md5
+      md5: 52cfb8a28f39dc2e5c03292b5d079dd8
+      size: 1945587
+      isexec: true
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+      isexec: true
+    - path: src/diversity.py
+      hash: md5
+      md5: 7be41f5217942a98915848120c66f90b
+      size: 6417
+      isexec: true
+    - path: src/schema.py
+      hash: md5
+      md5: ad834fcb5caa483d3d5d5bfabb433cc0
+      size: 3054
+      isexec: true
+    - path: src/stats.py
+      hash: md5
+      md5: a54925032eff4769647b5775d72dd423
+      size: 2222
+      isexec: true
+    - path: src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+      isexec: true
+    params:
+      params.yaml:
+        diversity:
+          min_examples: 1000
+          min_system_prompts: 3
+          min_groups: 4
+          max_group_share: 0.6
+          min_answer_len_ratio: 1.1
+          max_same_length_share: 0.25
+          max_duplicate_answer_share: 0.3
+        paths.clean: data/clean.jsonl
+        split.group_key: topic
+    outs:
+    - path: metrics/diversity.json
+      hash: md5
+      md5: 57133773ae458d468162366c9f8ccbbc
+      size: 645
+      isexec: true
+  split:
+    cmd: python -m src.split
+    deps:
+    - path: data/clean.jsonl
+      hash: md5
+      md5: 52cfb8a28f39dc2e5c03292b5d079dd8
+      size: 1945587
+      isexec: true
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+      isexec: true
+    - path: src/contamination.py
+      hash: md5
+      md5: 9293919fc5964067833313514c6f9f2b
+      size: 2249
+      isexec: true
+    - path: src/dedup.py
+      hash: md5
+      md5: f738f7ae19ac93464415e8f0f70f40a9
+      size: 1598
+      isexec: true
+    - path: src/schema.py
+      hash: md5
+      md5: ad834fcb5caa483d3d5d5bfabb433cc0
+      size: 3054
+      isexec: true
+    - path: src/split.py
+      hash: md5
+      md5: 7eb9de00b5f514208a0946124708fd98
+      size: 3386
+      isexec: true
+    - path: src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+      isexec: true
+    params:
+      params.yaml:
+        contamination:
+          threshold: 0.85
+        paths.test: data/test.jsonl
+        paths.train: data/train.jsonl
+        paths.val: data/val.jsonl
+        split:
+          group_key: topic
+          ratios:
+            train: 0.8
+            val: 0.1
+            test: 0.1
+          seed: 42
+    outs:
+    - path: data/test.jsonl
+      hash: md5
+      md5: 46e859f7d1459881093ab7bc485e459b
+      size: 300449
+      isexec: true
+    - path: data/train.jsonl
+      hash: md5
+      md5: 43e7cca1148ae08336f7d25e98bad5b9
+      size: 1645138
+      isexec: true
+    - path: data/val.jsonl
+      hash: md5
+      md5: d41d8cd98f00b204e9800998ecf8427e
+      size: 0
+      isexec: true
+    - path: metrics/split.json
+      hash: md5
+      md5: 82e78a7afd053c417b5a97d3084ee080
+      size: 511
+      isexec: true

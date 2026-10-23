@@ -1,0 +1,64 @@
+collect:
+  version: "v2"              # v1 | v2
+  # Для v1 берем 1500 строк, для v2 будем брать 2500 (поменяешь руками при make v2)
+  n_rows: 1500  
+  
+  sources:
+    v1:
+      - "../../datasets/nmo/sft_single/train/0000.parquet"
+    v2:
+      - "../../datasets/nmo/sft_single/train/0000.parquet"
+      - "../../datasets/nmo/sft_single/train/0001.parquet"             
+  
+  verify_answer_index: false # Нам это больше не нужно, у нас нет индексов
+
+  system_prompts:            
+    - "Ты — полезный ИИ-ассистент. Отвечай на вопросы пользователя подробно и вежливо."
+    - "Ты интеллектуальный помощник. Твоя задача — давать точные, развернутые и структурированные ответы."
+    - "Пользователь задает вопрос или дает инструкцию. Выполни задачу максимально качественно и понятно."
+    - "Ты экспертная языковая модель. Отвечай на вопросы прямо, без лишних вступлений, используя предоставленный контекст."
+    - "Твоя задача — помочь пользователю. Будь краток, но точен, и предоставляй релевантную информацию."
+
+clean:
+  min_user_chars: 10
+  max_user_chars: 4000
+  min_assistant_chars: 10
+  near_dup:
+    enabled: true
+    shingle_words: 4         
+    num_perm: 64             
+    threshold: 0.85          
+  pii:
+    enabled: true         
+
+diversity:
+  min_examples: 1000         
+  min_system_prompts: 3      
+  min_groups: 4              
+  max_group_share: 0.60      
+  min_answer_len_ratio: 1.1  
+  max_same_length_share: 0.25   
+  max_duplicate_answer_share: 0.30 
+
+split:
+  group_key: "topic"
+  ratios:
+    train: 0.8
+    val: 0.1
+    test: 0.1
+  seed: 42
+
+contamination:
+  threshold: 0.85
+
+paths:
+  raw: "data/raw.jsonl"
+  clean: "data/clean.jsonl"
+  train: "data/train.jsonl"
+  val: "data/val.jsonl"
+  test: "data/test.jsonl"
+  metrics_collect: "metrics/collect.json"
+  metrics_clean: "metrics/clean.json"
+  metrics_split: "metrics/split.json"
+  metrics_diversity: "metrics/diversity.json"
+  datasheet: "docs/datasheet.md"
