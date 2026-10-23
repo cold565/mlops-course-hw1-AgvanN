@@ -1,0 +1,13 @@
+# Окружения и кэши
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+# Тяжёлые и генерируемые артефакты: данные под DVC, веса и видео в Git не храним
+*.mp4
+*.pt
+*.safetensors
+*.bin
+mlruns/
+mlartifacts/
