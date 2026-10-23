@@ -1,0 +1,21 @@
+schema: '2.0'
+stages:
+  eval_data:
+    cmd: uv run python scripts/build_eval_data.py
+    deps:
+    - path: data/raw/train.jsonl
+      hash: md5
+      md5: 43e7cca1148ae08336f7d25e98bad5b9
+      size: 1645138
+      isexec: true
+    - path: scripts/build_eval_data.py
+      hash: md5
+      md5: 9afcbaa3c4b97de062a1c33022e8a098
+      size: 14861
+      isexec: true
+    outs:
+    - path: data/eval
+      hash: md5
+      md5: 3f5ce68c735dc9616338351bc8a567a3.dir
+      size: 600390
+      nfiles: 3

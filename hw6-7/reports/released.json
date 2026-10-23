@@ -1,0 +1,11 @@
+{
+  "model": {
+    "kind": "adapter",
+    "name": "my-qwen-adapter",
+    "version": "1",
+    "run_id": "1eb8479949014e33a8c9934cc247d8e3",
+    "uri": "models:/my-qwen-adapter/1"
+  },
+  "evaluation_run_id": "0c5e59f369724c618db7e644cf6b6ffb",
+  "protocol_sha256": "2842154ea4baa77e206617bbb5e940ede66683f0f3a11e40720e9b3bf46de8d7"
+}

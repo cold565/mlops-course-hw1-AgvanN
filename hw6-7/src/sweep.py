@@ -1,0 +1,79 @@
+"""Один sweep — родительский run, каждый кандидат — отдельный дочерний run."""
+import gc
+import json
+import os
+import tempfile
+from pathlib import Path
+
+import mlflow
+import pandas as pd
+from mlflow.models import infer_signature
+
+from src.common import connect, load_params, provenance, save_json
+from src.train import train
+
+
+def run_candidate(params, candidate, versions):
+    mlflow.set_tags({**versions, "kind": "candidate", "candidate": candidate["name"]})
+    # Каждый кандидат пишет параметры в свой run: ничего не пропускаем и не перетираем.
+    mlflow.log_params({"r": candidate["r"], "lr": candidate["lr"],
+        "target_modules": ",".join(candidate["target_modules"]),
+        **{f"train.{k}": v for k, v in params["train"].items()},
+        "model": params["model"]["name"], "dtype": params["model"]["dtype"],
+        "alpha_over_r": params["lora"]["alpha_over_r"], "dropout": params["lora"]["dropout"]})
+    mlflow.log_dict(params, "config.json")
+    # Достаточно sha для коммита, но dirty-код дополнительно сохраняется целиком.
+    mlflow.log_artifacts("src", "source")
+    mlflow.log_artifact("uv.lock")
+    with tempfile.TemporaryDirectory(prefix="hw6-train-") as tmp:
+        out = Path(tmp) / "adapter"
+        results, details, answers = train(params, candidate, out, lambda values, step: mlflow.log_metrics(values, step=step))
+        mlflow.log_metrics(results)
+        mlflow.set_tags(details)
+        samples = {"prompt": params["generation"]["prompts"], "answer": answers}
+        mlflow.log_table(samples, "samples.json")
+        example = pd.DataFrame({"prompt": samples["prompt"][:1]})
+        # log_model проверяет input_example, загружая модель целиком. На GPU 4 ГБ
+        # вторая копия рядом с обученной не помещается -> проверка идёт на CPU.
+        previous = os.environ.get("HW6_DEVICE")
+        os.environ["HW6_DEVICE"] = "cpu"
+        try:
+            mlflow.pyfunc.log_model(artifact_path="model", python_model="src/model.py",
+                artifacts={"adapter": str(out)}, signature=infer_signature(example, answers[:1]),
+                input_example=example,
+                pip_requirements=["mlflow==2.22.2", "torch==2.14.0", "transformers==5.17.0", "peft==0.21.0", "pandas<3"])
+        finally:
+            if previous is None:
+                os.environ.pop("HW6_DEVICE", None)
+            else:
+                os.environ["HW6_DEVICE"] = previous
+            gc.collect()
+            import torch
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        return {"run_id": mlflow.active_run().info.run_id, "name": candidate["name"], **results}
+
+
+def main():
+    p = load_params()
+    if len(p["sweep"]) < 6 or len({x["name"] for x in p["sweep"]}) != len(p["sweep"]):
+        raise SystemExit("Нужно минимум шесть кандидатов с уникальными именами")
+    if any(p["train"][k] <= 0 for k in ("max_steps", "train_limit", "val_limit", "batch_size", "grad_accum", "eval_every")):
+        raise SystemExit("Бюджеты и размеры батча должны быть положительными")
+    connect(p)
+    # Версии train/val (SHA256 файлов) входят в контракт эксперимента наравне с кодом.
+    versions = provenance(p)
+    rows = []
+    with mlflow.start_run(run_name="sweep", tags={"kind": "sweep", **versions}) as parent:
+        for candidate in p["sweep"]:
+            # Один кандидат = один дочерний run со своими params, метриками и моделью.
+            with mlflow.start_run(run_name=candidate["name"], nested=True):
+                rows.append(run_candidate(p, candidate, versions))
+        mlflow.log_dict({"candidates": rows}, "comparison.json")
+        result = {"parent_id": parent.info.run_id, "rows": rows, "provenance": versions}
+    save_json("metrics/sweep.json", result)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

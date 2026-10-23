@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "overall": {
+    "baseline": {
+      "accuracy": 0.86,
+      "format_rate": 1.0,
+      "correct": 43,
+      "valid": 50,
+      "n": 50
+    },
+    "candidate": {
+      "accuracy": 0.86,
+      "format_rate": 1.0,
+      "correct": 43,
+      "valid": 50,
+      "n": 50
+    }
+  },
+  "critical_slices": {
+    "science": {
+      "baseline": "16/17",
+      "candidate": "16/17"
+    },
+    "four_options": {
+      "baseline": "24/30",
+      "candidate": "24/30"
+    }
+  },
+  "behavioral": "3/3",
+  "tolerance": 0.0,
+  "protocol_sha256": "2842154ea4baa77e206617bbb5e940ede66683f0f3a11e40720e9b3bf46de8d7"
+}

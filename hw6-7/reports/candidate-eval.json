@@ -1,0 +1,821 @@
+{
+  "overall": {
+    "n": 50,
+    "correct": 43,
+    "valid": 50,
+    "errors": 0,
+    "accuracy": 0.86,
+    "format_rate": 1.0
+  },
+  "slices": {
+    "four_options": {
+      "n": 30,
+      "correct": 24,
+      "valid": 30,
+      "errors": 0,
+      "accuracy": 0.8,
+      "format_rate": 1.0
+    },
+    "geography": {
+      "n": 17,
+      "correct": 16,
+      "valid": 17,
+      "errors": 0,
+      "accuracy": 0.9411764705882353,
+      "format_rate": 1.0
+    },
+    "history_culture": {
+      "n": 16,
+      "correct": 11,
+      "valid": 16,
+      "errors": 0,
+      "accuracy": 0.6875,
+      "format_rate": 1.0
+    },
+    "lang_en": {
+      "n": 40,
+      "correct": 35,
+      "valid": 40,
+      "errors": 0,
+      "accuracy": 0.875,
+      "format_rate": 1.0
+    },
+    "lang_ru": {
+      "n": 10,
+      "correct": 8,
+      "valid": 10,
+      "errors": 0,
+      "accuracy": 0.8,
+      "format_rate": 1.0
+    },
+    "science": {
+      "n": 17,
+      "correct": 16,
+      "valid": 17,
+      "errors": 0,
+      "accuracy": 0.9411764705882353,
+      "format_rate": 1.0
+    },
+    "two_options": {
+      "n": 20,
+      "correct": 19,
+      "valid": 20,
+      "errors": 0,
+      "accuracy": 0.95,
+      "format_rate": 1.0
+    }
+  },
+  "per_item": [
+    {
+      "id": "geo-01",
+      "raw": "{\"answer\": \"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-02",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-03",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-04",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-05",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-06",
+      "raw": "{\"answer\": \"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-07",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-08",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-09",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-10",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-11",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-12",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-13",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "geo-14",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "geo-15",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "geo-16",
+      "raw": "{\"answer\": \"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "four_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "geo-17",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "geography",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-01",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-02",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-03",
+      "raw": "{\"answer\": \"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-04",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-05",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-06",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-07",
+      "raw": "{\"answer\": \"REFUSE\"}",
+      "parsed": "REFUSE",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-08",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-09",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-10",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-11",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-12",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-13",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "sci-14",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "sci-15",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "sci-16",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "two_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "sci-17",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "science",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-01",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-02",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-03",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-04",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-05",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-06",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-07",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-08",
+      "raw": "{\"answer\": \"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-09",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-10",
+      "raw": "{\"answer\": \"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-11",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "two_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-12",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_en"
+      ]
+    },
+    {
+      "id": "his-13",
+      "raw": "{\"answer\": \"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "his-14",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "two_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "his-15",
+      "raw": "{\"answer\": \"A\"}",
+      "parsed": "A",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "two_options",
+        "lang_ru"
+      ]
+    },
+    {
+      "id": "his-16",
+      "raw": "{\"answer\": \"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "history_culture",
+        "four_options",
+        "lang_ru"
+      ]
+    }
+  ],
+  "status": "complete",
+  "model": {
+    "kind": "adapter",
+    "name": "my-qwen-adapter",
+    "version": "1",
+    "run_id": "1eb8479949014e33a8c9934cc247d8e3",
+    "uri": "models:/my-qwen-adapter/1"
+  },
+  "protocol_sha256": "2842154ea4baa77e206617bbb5e940ede66683f0f3a11e40720e9b3bf46de8d7",
+  "golden_sha256": "474b0d9b50f6f0edccea9b53660c18c3d7da8f4eb3d2e35f4f2026a3a53cf921",
+  "baseline_spec_sha256": "f71269b95f6b4e1e160fa25e9af6c973517cfebad15880b75b56c8184680b163",
+  "behavioral": {
+    "overall": {
+      "n": 3,
+      "correct": 3,
+      "valid": 3,
+      "errors": 0,
+      "accuracy": 1.0,
+      "format_rate": 1.0
+    },
+    "slices": {
+      "behavior": {
+        "n": 3,
+        "correct": 3,
+        "valid": 3,
+        "errors": 0,
+        "accuracy": 1.0,
+        "format_rate": 1.0
+      },
+      "format": {
+        "n": 1,
+        "correct": 1,
+        "valid": 1,
+        "errors": 0,
+        "accuracy": 1.0,
+        "format_rate": 1.0
+      },
+      "paraphrase": {
+        "n": 1,
+        "correct": 1,
+        "valid": 1,
+        "errors": 0,
+        "accuracy": 1.0,
+        "format_rate": 1.0
+      },
+      "refusal": {
+        "n": 1,
+        "correct": 1,
+        "valid": 1,
+        "errors": 0,
+        "accuracy": 1.0,
+        "format_rate": 1.0
+      }
+    },
+    "per_item": [
+      {
+        "id": "beh-format",
+        "raw": "{\"answer\": \"A\"}",
+        "parsed": "A",
+        "valid": true,
+        "correct": true,
+        "error": null,
+        "slices": [
+          "behavior",
+          "format"
+        ]
+      },
+      {
+        "id": "beh-paraphrase",
+        "raw": "{\"answer\": \"D\"}",
+        "parsed": "D",
+        "valid": true,
+        "correct": true,
+        "error": null,
+        "slices": [
+          "behavior",
+          "paraphrase"
+        ]
+      },
+      {
+        "id": "beh-refusal",
+        "raw": "{\"answer\": \"REFUSE\"}",
+        "parsed": "REFUSE",
+        "valid": true,
+        "correct": true,
+        "error": null,
+        "slices": [
+          "behavior",
+          "refusal"
+        ]
+      }
+    ]
+  },
+  "leakage": {
+    "exact_or_group_intersections": 0,
+    "n_train_index": 1546,
+    "n_golden": 50,
+    "n_behavioral": 3
+  },
+  "outputs_sha256": "ceecfb0ab85d15408f9b79b3b98fa95519921a8d3b1572319fd29c31214ced6c",
+  "evaluation_run_id": "0c5e59f369724c618db7e644cf6b6ffb"
+}

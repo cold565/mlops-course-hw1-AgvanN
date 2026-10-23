@@ -1,0 +1,10 @@
+{
+  "golden": "data/eval/golden.jsonl",
+  "training_index": "data/eval/training-index.jsonl",
+  "behavioral": "data/eval/behavioral.jsonl",
+  "critical_slices": ["science", "four_options"],
+  "seed": 42,
+  "system": "Ты решаешь тестовые вопросы по общим знаниям (география, наука, история и культура). В вопросе даны варианты ответа и строка choices со списком допустимых меток. Верни только JSON-объект вида {\"answer\": \"<метка>\"}, где метка взята из choices. Никакого другого текста, пояснений и markdown. Если запрос не является вопросом по общим знаниям с вариантами ответа, верни {\"answer\": \"REFUSE\"}.",
+  "max_new_tokens": 32,
+  "enable_thinking": false
+}

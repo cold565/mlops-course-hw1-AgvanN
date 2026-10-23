@@ -1,0 +1,8 @@
+stages:
+  eval_data:
+    cmd: uv run python scripts/build_eval_data.py
+    deps:
+    - data/raw/train.jsonl
+    - scripts/build_eval_data.py
+    outs:
+    - data/eval
