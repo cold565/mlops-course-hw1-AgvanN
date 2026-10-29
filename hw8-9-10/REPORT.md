@@ -9,7 +9,7 @@ torch 2.14.0 / transformers 5.17.0 / peft 0.21.0 (те же версии, что
 |---|---|
 | `4aa9358` | исходный прототип без изменений |
 | `497fa99` | исправление 7 причин, Prefect-flow, FastAPI, реальная модель, 7 интеграционных тестов |
-| следующий | журналы `evidence/`, реальный выпуск `release/`, `defects.csv`, отчёт |
+| `1126672` | журналы `evidence/`, реальный выпуск `release/`, `defects.csv`, отчёт |
 
 Зависимости закреплены в `pyproject.toml` + `uv.lock`. Быстрый набор (`uv sync --frozen`) содержит только Prefect, FastAPI и uvicorn.
 torch, transformers и peft ставятся отдельно: `--extra model`. Команды описаны в [README.md](README.md).
