@@ -1,0 +1,188 @@
+## 1. Сбой после подготовки -> восстановление в новом процессе -> изменение входа
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w1 init
+Создан синтетический стенд: /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w1
+exit=0
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w1 run --fail-after-prepare
+PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:40:47.789 | INFO    | Task run 'prepare-input-3b8' - Finished in state Completed()
+16:40:48.822 | INFO    | Flow run 'phenomenal-millipede' - Finished in state Failed('Flow run encountered an exception: InjectedFailure: Инъекция сбоя после подготовки')
+INJECTED_FAILURE: Инъекция сбоя после подготовки
+exit=3
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w1 run
+16:40:51.089 | INFO    | Task run 'prepare-input-d64' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:40:51.095 | INFO    | Task run 'fetch-artifact-4a5' - Finished in state Completed()
+16:40:51.098 | INFO    | Task run 'check-gate-report-42c' - Finished in state Completed()
+16:40:51.102 | INFO    | Task run 'publish-release-72a' - Finished in state Completed()
+PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:40:52.093 | INFO    | Flow run 'almond-trout' - Finished in state Completed()
+exit=0
+# input.txt изменён по тому же пути
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w1 run
+PREPARED ec50cb14172c2a00916251eac00bf0f460a17645276ac0a1a027afa49ae1f8f6
+16:40:54.378 | INFO    | Task run 'prepare-input-dcf' - Finished in state Completed()
+16:40:54.385 | INFO    | Task run 'fetch-artifact-a82' - Finished in state Completed()
+16:40:54.387 | INFO    | Task run 'check-gate-report-94f' - Finished in state Completed()
+16:40:54.391 | INFO    | Task run 'publish-release-41d' - Finished in state Completed()
+ALREADY_PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:40:55.381 | INFO    | Flow run 'careful-zebu' - Finished in state Completed()
+exit=0
+# config.json: max_length 128 -> 256
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w1 run
+PREPARED ec50cb14172c2a00916251eac00bf0f460a17645276ac0a1a027afa49ae1f8f6
+16:40:57.665 | INFO    | Task run 'prepare-input-0df' - Finished in state Completed()
+16:40:57.671 | INFO    | Task run 'fetch-artifact-42c' - Finished in state Completed()
+16:40:57.674 | INFO    | Task run 'check-gate-report-051' - Finished in state Completed()
+16:40:57.677 | INFO    | Task run 'publish-release-bfa' - Finished in state Completed()
+ALREADY_PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:40:58.668 | INFO    | Flow run 'daft-hedgehog' - Finished in state Completed()
+exit=0
+# attempts.jsonl (состояния задач Prefect по попыткам):
+{"flow_run_id": "a0be4b08-1ffc-4039-a033-97ab97799246", "outcome": "failed", "tasks": {"prepare": "Completed"}}
+{"flow_run_id": "2bc50f39-910e-434c-bf97-21234fac826a", "outcome": "published", "tasks": {"fetch": "Completed", "gate": "Completed", "prepare": "Cached", "publish": "Completed"}}
+{"flow_run_id": "541a3e56-70d1-4fa1-b27b-6d3387b77e09", "outcome": "already_published", "tasks": {"fetch": "Completed", "gate": "Completed", "prepare": "Completed", "publish": "Completed"}}
+{"flow_run_id": "e6b9352a-12f7-40e9-b26d-a930b5ba8606", "outcome": "already_published", "tasks": {"fetch": "Completed", "gate": "Completed", "prepare": "Completed", "publish": "Completed"}}
+
+## 2-3. Неполный, чужой (A для B), отклонённый отчёт и NaN
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w2 init
+Создан синтетический стенд: /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w2
+exit=0
+# report-nan.json: копия report-B с metrics.accuracy = NaN
+accepted.json sha256 before: ef076cc32ed6abb3985d241fd7bcc6cd50192c3b845b466924d6c27a4ab02f2c
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w2 run --report report-incomplete.json
+PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:02.893 | INFO    | Task run 'prepare-input-97a' - Finished in state Completed()
+16:41:02.900 | INFO    | Task run 'fetch-artifact-995' - Finished in state Completed()
+16:41:02.904 | ERROR   | Task run 'check-gate-report-1cb' - Finished in state Failed("Task run encountered an exception ValueError: Отчёт не завершён: status='running'")
+16:41:03.921 | INFO    | Flow run 'cheerful-nyala' - Finished in state Failed("Flow run encountered an exception: ValueError: Отчёт не завершён: status='running'")
+REJECTED: Отчёт не завершён: status='running'
+exit=2
+accepted.json sha256 after report-incomplete.json: ef076cc32ed6abb3985d241fd7bcc6cd50192c3b845b466924d6c27a4ab02f2c
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w2 run --report report-A.json
+16:41:06.203 | INFO    | Task run 'prepare-input-5da' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:06.210 | INFO    | Task run 'fetch-artifact-dbe' - Finished in state Completed()
+16:41:06.214 | ERROR   | Task run 'check-gate-report-d3b' - Finished in state Failed('Task run encountered an exception ValueError: Отчёт относится к другой модели (model_id)')
+16:41:07.240 | INFO    | Flow run 'carmine-octopus' - Finished in state Failed('Flow run encountered an exception: ValueError: Отчёт относится к другой модели (model_id)')
+REJECTED: Отчёт относится к другой модели (model_id)
+exit=2
+accepted.json sha256 after report-A.json: ef076cc32ed6abb3985d241fd7bcc6cd50192c3b845b466924d6c27a4ab02f2c
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w2 run --report report-reject.json
+16:41:09.577 | INFO    | Task run 'prepare-input-30f' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:09.584 | INFO    | Task run 'fetch-artifact-ed1' - Finished in state Completed()
+16:41:09.588 | ERROR   | Task run 'check-gate-report-c1a' - Finished in state Failed('Task run encountered an exception ValueError: Кандидат не допущен: passed=False')
+16:41:10.611 | INFO    | Flow run 'mature-ocelot' - Finished in state Failed('Flow run encountered an exception: ValueError: Кандидат не допущен: passed=False')
+REJECTED: Кандидат не допущен: passed=False
+exit=2
+accepted.json sha256 after report-reject.json: ef076cc32ed6abb3985d241fd7bcc6cd50192c3b845b466924d6c27a4ab02f2c
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w2 run --report report-nan.json
+16:41:12.826 | INFO    | Task run 'prepare-input-864' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:12.833 | INFO    | Task run 'fetch-artifact-7d0' - Finished in state Completed()
+16:41:12.837 | ERROR   | Task run 'check-gate-report-4f6' - Finished in state Failed('Task run encountered an exception ValueError: metrics.accuracy: нужно конечное число в [0, 1]')
+16:41:13.863 | INFO    | Flow run 'innocent-loon' - Finished in state Failed('Flow run encountered an exception: ValueError: metrics.accuracy: нужно конечное число в [0, 1]')
+REJECTED: metrics.accuracy: нужно конечное число в [0, 1]
+exit=2
+accepted.json sha256 after report-nan.json: ef076cc32ed6abb3985d241fd7bcc6cd50192c3b845b466924d6c27a4ab02f2c
+
+## 4. Повтор выпуска B в двух процессах
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4 init
+Создан синтетический стенд: /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4
+exit=0
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4 run
+PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:18.096 | INFO    | Task run 'prepare-input-0c5' - Finished in state Completed()
+16:41:18.103 | INFO    | Task run 'fetch-artifact-02d' - Finished in state Completed()
+16:41:18.105 | INFO    | Task run 'check-gate-report-e30' - Finished in state Completed()
+16:41:18.109 | INFO    | Task run 'publish-release-98d' - Finished in state Completed()
+PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:41:19.100 | INFO    | Flow run 'celadon-jellyfish' - Finished in state Completed()
+exit=0
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4 run
+16:41:21.443 | INFO    | Task run 'prepare-input-eea' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:21.450 | INFO    | Task run 'fetch-artifact-4c3' - Finished in state Completed()
+16:41:21.452 | INFO    | Task run 'check-gate-report-011' - Finished in state Completed()
+16:41:21.455 | INFO    | Task run 'publish-release-282' - Finished in state Completed()
+ALREADY_PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:41:22.447 | INFO    | Flow run 'imaginary-dodo' - Finished in state Completed()
+exit=0
+события B в publications.jsonl: 1
+
+## 4b. Сбой между записью указателя и журнала -> повтор восстанавливает событие один раз
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4b init
+Создан синтетический стенд: /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4b
+exit=0
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4b run --fail-after-pointer
+PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:26.600 | INFO    | Task run 'prepare-input-fdd' - Finished in state Completed()
+16:41:26.606 | INFO    | Task run 'fetch-artifact-117' - Finished in state Completed()
+16:41:26.609 | INFO    | Task run 'check-gate-report-efe' - Finished in state Completed()
+16:41:26.615 | ERROR   | Task run 'publish-release-b33' - Finished in state Failed('Task run encountered an exception InjectedFailure: Инъекция сбоя между записью указателя и журнала')
+16:41:27.634 | INFO    | Flow run 'tall-dodo' - Finished in state Failed('Flow run encountered an exception: InjectedFailure: Инъекция сбоя между записью указателя и журнала')
+INJECTED_FAILURE: Инъекция сбоя между записью указателя и журнала
+exit=3
+указатель: fixture-B, события B: 0
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4b run
+16:41:29.915 | INFO    | Task run 'prepare-input-567' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:29.922 | INFO    | Task run 'fetch-artifact-1f0' - Finished in state Completed()
+16:41:29.925 | INFO    | Task run 'check-gate-report-fdb' - Finished in state Completed()
+16:41:29.928 | INFO    | Task run 'publish-release-723' - Finished in state Completed()
+RECOVERED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:41:30.919 | INFO    | Flow run 'auburn-puma' - Finished in state Completed()
+exit=0
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w4b run
+16:41:33.212 | INFO    | Task run 'prepare-input-eab' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:33.219 | INFO    | Task run 'fetch-artifact-071' - Finished in state Completed()
+16:41:33.221 | INFO    | Task run 'check-gate-report-a59' - Finished in state Completed()
+16:41:33.224 | INFO    | Task run 'publish-release-973' - Finished in state Completed()
+ALREADY_PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:41:34.216 | INFO    | Flow run 'efficient-octopus' - Finished in state Completed()
+exit=0
+события B: 1
+{"evaluation_run_id": "fixture-eval-B", "event": "publish", "model_id": "fixture-B", "model_sha256": "b465d64e69349bc093704300fae82ec29d6c6fc678e51c56b59d82e885a225fa", "prepared_sha256": "88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4", "previous_release_id": "eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c", "recovered": true, "release_id": "591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5", "report_sha256": "74aa5a4c3549d5a6d99051cdeaac3756917b63aa94b732c212539a7c71f1b0bd", "runtime_sha256": "bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547", "ts": "2026-10-29T16:41:29+0300"}
+
+## 5-7. Сервис: готовность, фактическая версия A -> B -> откат A, неверные запросы
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w6 init
+Создан синтетический стенд: /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w6
+exit=0
+сразу после старта: health=200 ready=503 generate=503 debug={"loaded_id":null,"calls":0,"warmup_finished":false,"ready":false}
+после прогрева: ready={"ready":true,"model_id":"fixture-A","release_id":"eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c","runtime_sha256":"bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547","backend":"stub"}
+debug: {"loaded_id":"fixture-A","calls":0,"warmup_finished":true,"ready":true}
+calls до неверных запросов: {"loaded_id":"fixture-A","calls":0,"warmup_finished":true,"ready":true}
+POST {"prompt":""} -> 422
+POST {"prompt":"x","max_new_tokens":0} -> 422
+POST {"prompt":"x","max_new_tokens":100000} -> 422
+POST {"prompt":"x","max_new_tokens":"many"} -> 422
+calls после неверных запросов: {"loaded_id":"fixture-A","calls":0,"warmup_finished":true,"ready":true}
+валидный: {"text":"STUB ONLY: fixture-A [STUB ONLY — version A]","request_id":"986fc8b4-8eb3-4723-852c-d2b5dae89368","model_id":"fixture-A","release_id":"eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c","runtime_sha256":"bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547","backend":"stub","input_tokens":1,"output_tokens":8,"max_new_tokens":16,"queue_seconds":7.849999747122638e-05,"generation_seconds":0.012644542002817616,"total_seconds":0.012723042000288842}
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w6 run
+PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:43.730 | INFO    | Task run 'prepare-input-ed7' - Finished in state Completed()
+16:41:43.736 | INFO    | Task run 'fetch-artifact-8cd' - Finished in state Completed()
+16:41:43.738 | INFO    | Task run 'check-gate-report-7f0' - Finished in state Completed()
+16:41:43.743 | INFO    | Task run 'publish-release-788' - Finished in state Completed()
+PUBLISHED fixture-B 591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5
+16:41:44.733 | INFO    | Flow run 'courageous-shrew' - Finished in state Completed()
+exit=0
+accepted.json теперь: fixture-B
+до перезапуска: {"text":"STUB ONLY: fixture-A [STUB ONLY — version A]","request_id":"ad682120-9350-422c-acbf-b34661be29fc","model_id":"fixture-A","release_id":"eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c","runtime_sha256":"bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547","backend":"stub","input_tokens":1,"output_tokens":8,"max_new_tokens":16,"queue_seconds":0.00011375000030966476,"generation_seconds":0.012684624998655636,"total_seconds":0.0127983749989653}
+после перезапуска: {"text":"STUB ONLY: fixture-B [STUB ONLY — version B]","request_id":"a9cb02f9-d7f8-4d91-9866-895217219569","model_id":"fixture-B","release_id":"591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5","runtime_sha256":"bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547","backend":"stub","input_tokens":1,"output_tokens":8,"max_new_tokens":16,"queue_seconds":0.00010654099969542585,"generation_seconds":0.012665124999330146,"total_seconds":0.012771665999025572}
+$ lab.py --workspace /var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw8910-lab-XXXX.8ME1vlIV38/w6 rollback
+ROLLBACK_TO eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c
+16:41:47.504 | INFO    | Task run 'prepare-input-a73' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4
+16:41:47.510 | INFO    | Task run 'fetch-artifact-eb8' - Finished in state Completed()
+16:41:47.513 | INFO    | Task run 'check-gate-report-b8a' - Finished in state Completed()
+16:41:47.517 | INFO    | Task run 'publish-release-44b' - Finished in state Completed()
+PUBLISHED fixture-A eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c
+16:41:48.508 | INFO    | Flow run 'popular-saiga' - Finished in state Completed()
+exit=0
+после отката и перезапуска: {"text":"STUB ONLY: fixture-A [STUB ONLY — version A]","request_id":"85d74cd1-ff3c-4a67-87ab-9cc7bd0a69d3","model_id":"fixture-A","release_id":"eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c","runtime_sha256":"bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547","backend":"stub","input_tokens":1,"output_tokens":8,"max_new_tokens":16,"queue_seconds":0.00010870800178963691,"generation_seconds":0.012651791999815032,"total_seconds":0.012760500001604669}
+# publications.jsonl:
+{"event": "bootstrap", "model_id": "fixture-A", "release_id": "eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c", "previous_release_id": null, "recovered": false}
+{"event": "publish", "model_id": "fixture-B", "release_id": "591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5", "previous_release_id": "eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c", "recovered": false}
+{"event": "rollback", "model_id": "fixture-A", "release_id": "eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c", "previous_release_id": "591dbf0a94ded57606b17dab210a314a650cb7648dd20178ba58c84da72429a5", "recovered": false}

@@ -1,0 +1,14 @@
+200 health  {"ready": false}
+503 ready  {"error": null, "ready": false}
+503 generate запрос до готовности {"error": null, "ready": false}
+200 ready готов {"model_id": "Qwen/Qwen3-0.6B@c1899de289a0", "ready": true}
+200 generate валидный запрос {"text": "{\"answer\": \"C\"}", "model_id": "Qwen/Qwen3-0.6B@c1899de289a0", "output_tokens": 7, "generation_seconds": 0.20571708400166244}
+200 generate валидный запрос {"text": "{\"answer\": \"B\"}", "model_id": "Qwen/Qwen3-0.6B@c1899de289a0", "output_tokens": 7, "generation_seconds": 0.20537483299995074}
+200 generate валидный запрос {"text": "{\"answer\": \"REFUSE\"}", "model_id": "Qwen/Qwen3-0.6B@c1899de289a0", "output_tokens": 8, "generation_seconds": 0.22396970800036797}
+422 generate неверный запрос: 4xx до генерации {"detail": [{"type": "string_too_short", "loc": ["body", "prompt"], "msg": "String should have at least 1 character", "input": "", "ctx": {"min_length": 1}}]}
+422 generate неверный запрос: 4xx до генерации {"error": "max_new_tokens должен быть в [1, 32] (лимит протокола оценки)"}
+422 generate неверный запрос: 4xx до генерации {"error": "max_new_tokens должен быть в [1, 32] (лимит протокола оценки)"}
+422 generate неверный запрос: 4xx до генерации {"detail": [{"type": "int_type", "loc": ["body", "max_new_tokens"], "msg": "Input should be a valid integer", "input": "many"}]}
+422 generate неверный запрос: 4xx до генерации {"detail": [{"type": "extra_forbidden", "loc": ["body", "temperature"], "msg": "Extra inputs are not permitted", "input": 1.5}]}
+422 generate неверный запрос: 4xx до генерации {"error": "prompt длиннее 512 токенов (1340)"}
+SMOKE OK

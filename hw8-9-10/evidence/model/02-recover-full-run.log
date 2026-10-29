@@ -1,0 +1,158 @@
+$ .venv/bin/python model_flow.py --role baseline
+accepted.json sha256 before: none
+16:27:15.066 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8624
+See https://docs.prefect.io/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+16:27:16.012 | ERROR   | docket.dependencies - ↩ [    15ms] send_telemetry_heartbeat(){send_telemetry_heartbeat}
+Traceback (most recent call last):
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1958, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 1192, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 258, in execute
+    self._adapt_connection._handle_exception(error)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 412, in _handle_exception
+    self._handle_exception_no_connection(self.dbapi, error)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py", line 237, in _handle_exception_no_connection
+    super()._handle_exception_no_connection(dbapi, error)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 409, in _handle_exception_no_connection
+    raise error.with_traceback(exc_info[2])
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 256, in execute
+    return await_(self._execute_async(operation, parameters))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 167, in await_
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 205, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 279, in _execute_async
+    result = await self._cursor.execute(operation, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/cursor.py", line 40, in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/cursor.py", line 32, in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 160, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 63, in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/docket/worker.py", line 1134, in _execute
+    result = await execution.function(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/prefect/server/services/telemetry.py", line 80, in send_telemetry_heartbeat
+    session_start_timestamp, session_id = await _fetch_or_set_telemetry_session(db=db)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/prefect/server/services/telemetry.py", line 54, in _fetch_or_set_telemetry_session
+    await configuration.write_configuration(session, telemetry_session)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/prefect/server/models/configuration.py", line 29, in write_configuration
+    await session.flush()
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/ext/asyncio/session.py", line 1030, in flush
+    await greenlet_spawn(self.sync_session.flush, objects=objects)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 212, in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 4543, in flush
+    self._flush(objects)
+  File "<sqlalchemy generated warned() wrapper for sqlalchemy.orm.session.Session._flush>", line 2, in _flush
+    return target(fn, self, objects=objects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 4686, in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 166, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 4647, in _flush
+    flush_context.execute()
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 467, in execute
+    rec.execute(self)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/unitofwork.py", line 643, in execute
+    util.preloaded.orm_persistence._save_obj(
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 92, in _save_obj
+    _emit_insert_statements(
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/orm/persistence.py", line 1237, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1463, in execute
+    return meth(
+           ^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 533, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1683, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1837, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1977, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2347, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1958, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 1192, in do_execute
+    cursor.execute(statement, parameters)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 258, in execute
+    self._adapt_connection._handle_exception(error)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 412, in _handle_exception
+    self._handle_exception_no_connection(self.dbapi, error)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py", line 237, in _handle_exception_no_connection
+    super()._handle_exception_no_connection(dbapi, error)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 409, in _handle_exception_no_connection
+    raise error.with_traceback(exc_info[2])
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 256, in execute
+    return await_(self._execute_async(operation, parameters))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 167, in await_
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/util/concurrency.py", line 205, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/sqlalchemy/connectors/asyncio.py", line 279, in _execute_async
+    result = await self._cursor.execute(operation, parameters)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/cursor.py", line 40, in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/cursor.py", line 32, in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 160, in _execute
+    return await future
+           ^^^^^^^^^^^^
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/.venv/lib/python3.12/site-packages/aiosqlite/core.py", line 63, in _connection_worker_thread
+    result = function()
+             ^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: INSERT INTO configuration ("key", value, id, created, updated) VALUES (:key, :value, :id, :created, :updated)]
+[parameters: {'key': 'TELEMETRY_SESSION', 'value': '{"session_id": "b79c940e-035a-426e-8080-8dc56ab3bba4", "session_start_timestamp": "2026-10-29T13:27:16.010406+00:00"}', 'id': 'b1eea1fb-d6ce-4f5b-b4d2-7af237918c46', 'created': '2026-10-29 13:27:16.011457', 'updated': '2026-10-29 13:27:16.011463'}]
+(Background on this error at: https://sqlalche.me/e/21/e3q8)
+16:27:16.177 | INFO    | Flow run 'pristine-bear' - Beginning flow run 'pristine-bear' for flow 'release-model'
+16:27:17.841 | INFO    | Task run 'describe-runtime-341' - Finished in state Completed()
+16:27:17.844 | INFO    | Task run 'prepare-eval-inputs-67b' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT b86a8277271e84ddc1a954b98380776b8aad7befec9833c7851b77eb3ab5c84a
+16:27:18.359 | INFO    | Task run 'fetch-artifact-70f' - Finished in state Completed()
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 26601.45it/s]
+16:27:30.379 | INFO    | Task run 'full-evaluation-fee' - Оценка Qwen/Qwen3-0.6B@c1899de289a0: 43/50, format 50/50
+EVALUATED Qwen/Qwen3-0.6B@c1899de289a0 43/50
+16:27:30.393 | INFO    | Task run 'full-evaluation-fee' - Finished in state Completed()
+GATE PASS Qwen/Qwen3-0.6B@c1899de289a0 
+16:27:30.408 | INFO    | Task run 'quality-gate-97d' - Finished in state Completed()
+16:27:30.923 | INFO    | Task run 'publish-release-939' - Finished in state Completed()
+PUBLISHED Qwen/Qwen3-0.6B@c1899de289a0 a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa
+16:27:31.252 | INFO    | Flow run 'pristine-bear' - Finished in state Completed()
+16:27:31.265 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8624
+exit=0
+accepted.json sha256 after: fe10895a2a0c9a414bfd4c04f424fc6764f077196d1b341f6248b77e9925b04f
+publication events: 1

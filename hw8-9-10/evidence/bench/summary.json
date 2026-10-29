@@ -1,0 +1,40 @@
+[
+  {
+    "concurrency": 1,
+    "n": 8,
+    "ok": 8,
+    "errors": 0,
+    "batch_s": 1.634,
+    "ok_req_per_s": 4.895,
+    "mean_latency_s": 0.204,
+    "max_latency_s": 0.205,
+    "mean_queue_s": 0.0,
+    "mean_generation_s": 0.203,
+    "output_tokens": [
+      7
+    ],
+    "error_latencies_s": [],
+    "model_ids": [
+      "Qwen/Qwen3-0.6B@c1899de289a0"
+    ]
+  },
+  {
+    "concurrency": 2,
+    "n": 8,
+    "ok": 8,
+    "errors": 0,
+    "batch_s": 1.616,
+    "ok_req_per_s": 4.95,
+    "mean_latency_s": 0.379,
+    "max_latency_s": 0.406,
+    "mean_queue_s": 0.176,
+    "mean_generation_s": 0.202,
+    "output_tokens": [
+      7
+    ],
+    "error_latencies_s": [],
+    "model_ids": [
+      "Qwen/Qwen3-0.6B@c1899de289a0"
+    ]
+  }
+]

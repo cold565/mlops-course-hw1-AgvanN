@@ -1,0 +1,22 @@
+# Исправленная версия: 497fa99 (+ рабочее дерево)
+# Команда: .venv/bin/python -m unittest discover -s tests_integration -t . -v
+test_crash_recovery_uses_cache_and_input_change_invalidates (tests_integration.test_release_process.ReleaseProcessTests.test_crash_recovery_uses_cache_and_input_change_invalidates)
+Дефект 1: после сбоя подготовка берётся из кеша; новые байты/настройки — пересчёт. ... ok
+test_disk_error_during_publish_keeps_previous_bytes (tests_integration.test_release_process.ReleaseProcessTests.test_disk_error_during_publish_keeps_previous_bytes)
+Дефект 3: ошибка диска посреди записи указателя оставляет прежние байты. ... ok
+test_incomplete_foreign_and_rejected_reports_keep_pointer (tests_integration.test_release_process.ReleaseProcessTests.test_incomplete_foreign_and_rejected_reports_keep_pointer)
+Дефект 2: неполный, чужой и отклонённый отчёт не меняют accepted.json ни на байт. ... ok
+test_repeated_release_publishes_once_and_recovers_after_pointer_crash (tests_integration.test_release_process.ReleaseProcessTests.test_repeated_release_publishes_once_and_recovers_after_pointer_crash)
+Дефект 4: повтор выпуска в другом процессе не размножает события; сбой между ... ok
+test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call)
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется. ... ok
+test_loaded_version_changes_only_after_restart_and_rollback (tests_integration.test_service_http.ServiceHttpTests.test_loaded_version_changes_only_after_restart_and_rollback)
+Дефект 6: сервис сообщает загруженную версию, а не текущий файл указателя. ... ok
+test_not_ready_until_warmup_finished (tests_integration.test_service_http.ServiceHttpTests.test_not_ready_until_warmup_finished)
+Дефект 5: health жив сразу, но ready и generate не обслуживают до конца прогрева. ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 83.607s
+
+OK
+exit_code=0

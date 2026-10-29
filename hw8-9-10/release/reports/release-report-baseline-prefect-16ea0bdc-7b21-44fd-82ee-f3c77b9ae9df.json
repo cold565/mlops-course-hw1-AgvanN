@@ -1,0 +1,50 @@
+{
+  "decision": "REJECT",
+  "evaluation_run_id": "prefect-16ea0bdc-7b21-44fd-82ee-f3c77b9ae9df",
+  "gate": null,
+  "golden_sha256": "a3bc3d92b9ff1167f9354d0acc72c89c4f6c47612c1a2c50fe06150c55a75eaa",
+  "metrics": {
+    "accuracy": 0.86,
+    "behavioral": 1.0,
+    "correct": 43,
+    "critical_slices": {
+      "four_options": 0.8,
+      "science": 0.9411764705882353
+    },
+    "format_rate": 1.0,
+    "n": 50,
+    "valid": 50
+  },
+  "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
+  "model_sha256": "052d8c0b8c31f61d79bcbbcca49c85414118746986773d57fb6a56f58e5a0c09",
+  "passed": false,
+  "protocol_sha256": "92c465a373757885837f9f66e394313ccc6e8766d6195f857cf7caf75a5cd5ad",
+  "reason": "baseline-eval.json: другой protocol_sha256",
+  "role": "baseline",
+  "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
+  "sources": {
+    "evaluated": {
+      "eval": "release/eval/baseline-0058d9bbfb3644a4/eval.json",
+      "eval_sha256": "ffe5853ec61d5d9ed7ee99951cd9c88dd9e122b3b0a762d62ac526ee8ee818f0",
+      "outputs": "release/eval/baseline-0058d9bbfb3644a4/outputs.json",
+      "outputs_sha256": "4664956067aa0ef9b27369819b805f3fbb50c48279a1274b2f75dbf9b43df504"
+    },
+    "gate_code": {
+      "path": "../../../../../../../../../private/var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw67-changed-XXXX.zZchB5FCDJ/evaluation/solution.py",
+      "sha256": "6faf323c04d5bb316423f9b6e162f7ec3c8783b180728de1946e6b1b2640036a"
+    },
+    "protocol": {
+      "path": "../../../../../../../../../private/var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw67-changed-XXXX.zZchB5FCDJ/evaluation/params.json",
+      "protocol_sha256": "92c465a373757885837f9f66e394313ccc6e8766d6195f857cf7caf75a5cd5ad"
+    },
+    "reference": {
+      "eval": "../../../../../../../../../private/var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw67-changed-XXXX.zZchB5FCDJ/metrics/baseline-eval.json",
+      "eval_sha256": "27beb4c6fbc878b1d91bd701a0fa116469debd692fd49385650f59a785a2cc75",
+      "evaluation_run_id": "0c5e59f369724c618db7e644cf6b6ffb",
+      "note": "baseline ДЗ 6+7 (MLflow evaluation run 0c5e59f3…, CUDA, WSL)",
+      "outputs": "../../../../../../../../../private/var/folders/tf/yf6pblz923bctcfxzsk1d6mh0000gn/T/hw67-changed-XXXX.zZchB5FCDJ/metrics/baseline-outputs.json",
+      "outputs_sha256": "292a590a332dca81cc418750cf1cbc60658ab0e9d9c38c0d63f663745b4405db"
+    }
+  },
+  "status": "complete"
+}

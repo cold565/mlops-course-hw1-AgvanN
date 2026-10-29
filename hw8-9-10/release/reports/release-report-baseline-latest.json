@@ -1,0 +1,81 @@
+{
+  "decision": "PASS",
+  "evaluation_run_id": "prefect-7315dd9b-b18b-4982-8a10-a16377609ac5",
+  "gate": {
+    "behavioral": "3/3",
+    "critical_slices": {
+      "four_options": {
+        "baseline": "24/30",
+        "candidate": "24/30"
+      },
+      "science": {
+        "baseline": "16/17",
+        "candidate": "16/17"
+      }
+    },
+    "overall": {
+      "baseline": {
+        "accuracy": 0.86,
+        "correct": 43,
+        "format_rate": 1.0,
+        "n": 50,
+        "valid": 50
+      },
+      "candidate": {
+        "accuracy": 0.86,
+        "correct": 43,
+        "format_rate": 1.0,
+        "n": 50,
+        "valid": 50
+      }
+    },
+    "passed": true,
+    "protocol_sha256": "2842154ea4baa77e206617bbb5e940ede66683f0f3a11e40720e9b3bf46de8d7",
+    "tolerance": 0.0
+  },
+  "golden_sha256": "474b0d9b50f6f0edccea9b53660c18c3d7da8f4eb3d2e35f4f2026a3a53cf921",
+  "metrics": {
+    "accuracy": 0.86,
+    "behavioral": 1.0,
+    "correct": 43,
+    "critical_slices": {
+      "four_options": 0.8,
+      "science": 0.9411764705882353
+    },
+    "format_rate": 1.0,
+    "n": 50,
+    "valid": 50
+  },
+  "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
+  "model_sha256": "052d8c0b8c31f61d79bcbbcca49c85414118746986773d57fb6a56f58e5a0c09",
+  "passed": true,
+  "protocol_sha256": "2842154ea4baa77e206617bbb5e940ede66683f0f3a11e40720e9b3bf46de8d7",
+  "reason": null,
+  "role": "baseline",
+  "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
+  "sources": {
+    "evaluated": {
+      "eval": "release/eval/baseline-11b7e264c4ed8374/eval.json",
+      "eval_sha256": "a742128320ef6a69b9ce0f143aea86248b8da40a8dd7f852cc098e7ae23f1271",
+      "outputs": "release/eval/baseline-11b7e264c4ed8374/outputs.json",
+      "outputs_sha256": "553276bab2eafdecfc03ec6bbd0d94e2d7c5bd77b805afc4f1b18bda0f730af3"
+    },
+    "gate_code": {
+      "path": "../../mlops26-hw6-7/hw67-broken/evaluation/solution.py",
+      "sha256": "6faf323c04d5bb316423f9b6e162f7ec3c8783b180728de1946e6b1b2640036a"
+    },
+    "protocol": {
+      "path": "../../mlops26-hw6-7/hw67-broken/evaluation/params.json",
+      "protocol_sha256": "2842154ea4baa77e206617bbb5e940ede66683f0f3a11e40720e9b3bf46de8d7"
+    },
+    "reference": {
+      "eval": "../../mlops26-hw6-7/hw67-broken/metrics/baseline-eval.json",
+      "eval_sha256": "27beb4c6fbc878b1d91bd701a0fa116469debd692fd49385650f59a785a2cc75",
+      "evaluation_run_id": "0c5e59f369724c618db7e644cf6b6ffb",
+      "note": "baseline ДЗ 6+7 (MLflow evaluation run 0c5e59f3…, CUDA, WSL)",
+      "outputs": "../../mlops26-hw6-7/hw67-broken/metrics/baseline-outputs.json",
+      "outputs_sha256": "292a590a332dca81cc418750cf1cbc60658ab0e9d9c38c0d63f663745b4405db"
+    }
+  },
+  "status": "complete"
+}

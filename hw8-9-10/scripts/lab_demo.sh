@@ -24,10 +24,12 @@ echo "# config.json: max_length 128 -> 256"; run --workspace $W run
 echo "# attempts.jsonl (состояния задач Prefect по попыткам):"
 "$PY" -c "import json,sys; [print(json.dumps({k:a.get(k) for k in ('flow_run_id','outcome','tasks')},ensure_ascii=False)) for a in map(json.loads,open('$W/attempts.jsonl'))]"
 
-echo; echo "## 2-3. Неполный, чужой (A для B) и отклонённый отчёт"
+echo; echo "## 2-3. Неполный, чужой (A для B), отклонённый отчёт и NaN"
 W=$BASE/w2; run --workspace $W init
+"$PY" -c "import json;r=json.load(open('$W/report-B.json'));r['metrics']['accuracy']=float('nan');json.dump(r,open('$W/report-nan.json','w'))"
+echo "# report-nan.json: копия report-B с metrics.accuracy = NaN"
 echo "accepted.json sha256 before: $(sha $W)"
-for r in report-incomplete.json report-A.json report-reject.json; do run --workspace $W run --report $r; echo "accepted.json sha256 after $r: $(sha $W)"; done
+for r in report-incomplete.json report-A.json report-reject.json report-nan.json; do run --workspace $W run --report $r; echo "accepted.json sha256 after $r: $(sha $W)"; done
 
 echo; echo "## 4. Повтор выпуска B в двух процессах"
 W=$BASE/w4; run --workspace $W init

@@ -1,0 +1,91 @@
+# make check с намеренной поломкой:
+diff --git a/api.py b/api.py
+index 45e5eb0..83be831 100644
+--- a/api.py
++++ b/api.py
+@@ -110,7 +110,7 @@ def create_app(pointer_path: Path, backend_factory, *, warmup_seconds: float = 0
+             return not_ready()
+         backend = state.backend
+         limit = backend.max_new_tokens if body.max_new_tokens is None else body.max_new_tokens
+-        if not 1 <= limit <= backend.max_new_tokens:
++        if not 1 <= limit:  # НАМЕРЕННАЯ ПОЛОМКА
+             return JSONResponse({'error': f'max_new_tokens должен быть в [1, {backend.max_new_tokens}] '
+                                           '(лимит протокола оценки)'}, status_code=422)
+         if not body.prompt.strip():
+.venv/bin/python -m compileall -q release.py ledger.py artifacts.py flow.py lab.py api.py backends.py service.py model_runtime.py model_flow.py scripts tests tests_integration
+.venv/bin/python -m unittest discover -s tests -v
+test_changed_bytes_at_same_path_invalidate_cache (test_release.ReleaseContractTests.test_changed_bytes_at_same_path_invalidate_cache) ... ok
+test_complete_bound_report_allowed (test_release.ReleaseContractTests.test_complete_bound_report_allowed) ... ok
+test_every_preparation_setting_invalidates_cache (test_release.ReleaseContractTests.test_every_preparation_setting_invalidates_cache) ... ok
+test_failed_atomic_replace_preserves_previous_bytes (test_release.ReleaseContractTests.test_failed_atomic_replace_preserves_previous_bytes) ... ok
+test_incomplete_false_and_truthy_string_rejected (test_release.ReleaseContractTests.test_incomplete_false_and_truthy_string_rejected) ... ok
+test_invalid_digest_and_schema_rejected (test_release.ReleaseContractTests.test_invalid_digest_and_schema_rejected) ... ok
+test_invalid_metric_rejected (test_release.ReleaseContractTests.test_invalid_metric_rejected) ... ok
+test_key_ignores_path_and_mapping_order (test_release.ReleaseContractTests.test_key_ignores_path_and_mapping_order) ... ok
+test_missing_fields_rejected (test_release.ReleaseContractTests.test_missing_fields_rejected) ... ok
+test_publish_and_repeat (test_release.ReleaseContractTests.test_publish_and_repeat) ... ok
+test_rejection_preserves_previous_bytes (test_release.ReleaseContractTests.test_rejection_preserves_previous_bytes) ... ok
+test_report_binding_mismatch_rejected (test_release.ReleaseContractTests.test_report_binding_mismatch_rejected) ... ok
+test_runtime_change_with_stale_hash_rejected (test_release.ReleaseContractTests.test_runtime_change_with_stale_hash_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.006s
+
+OK
+.venv/bin/python -m unittest discover -s tests_integration -t . -v
+test_crash_recovery_uses_cache_and_input_change_invalidates (tests_integration.test_release_process.ReleaseProcessTests.test_crash_recovery_uses_cache_and_input_change_invalidates)
+Дефект 1: после сбоя подготовка берётся из кеша; новые байты/настройки — пересчёт. ... ok
+test_disk_error_during_publish_keeps_previous_bytes (tests_integration.test_release_process.ReleaseProcessTests.test_disk_error_during_publish_keeps_previous_bytes)
+Дефект 3: ошибка диска посреди записи указателя оставляет прежние байты. ... ok
+test_incomplete_foreign_and_rejected_reports_keep_pointer (tests_integration.test_release_process.ReleaseProcessTests.test_incomplete_foreign_and_rejected_reports_keep_pointer)
+Дефект 2: неполный, чужой и отклонённый отчёт не меняют accepted.json ни на байт. ... ok
+test_repeated_release_publishes_once_and_recovers_after_pointer_crash (tests_integration.test_release_process.ReleaseProcessTests.test_repeated_release_publishes_once_and_recovers_after_pointer_crash)
+Дефект 4: повтор выпуска в другом процессе не размножает события; сбой между ... ok
+test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call)
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется. ... 
+  test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call) (body={'prompt': 'x', 'max_new_tokens': 33})
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется. ... FAIL
+  test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call) (body={'prompt': 'x', 'max_new_tokens': 100000})
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется. ... FAIL
+test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call)
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется. ... FAIL
+test_loaded_version_changes_only_after_restart_and_rollback (tests_integration.test_service_http.ServiceHttpTests.test_loaded_version_changes_only_after_restart_and_rollback)
+Дефект 6: сервис сообщает загруженную версию, а не текущий файл указателя. ... ok
+test_not_ready_until_warmup_finished (tests_integration.test_service_http.ServiceHttpTests.test_not_ready_until_warmup_finished)
+Дефект 5: health жив сразу, но ready и generate не обслуживают до конца прогрева. ... ok
+
+======================================================================
+FAIL: test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call) (body={'prompt': 'x', 'max_new_tokens': 33})
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/tests_integration/test_service_http.py", line 84, in test_invalid_requests_rejected_without_backend_call
+    self.assertTrue(400 <= status < 500, f'{body} -> {status} {payload}')
+AssertionError: False is not true : {'prompt': 'x', 'max_new_tokens': 33} -> 200 {'text': 'STUB ONLY: fixture-A [STUB ONLY — version A]', 'request_id': '72522499-43fc-4dd8-89ff-1f441df121e9', 'model_id': 'fixture-A', 'release_id': 'eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c', 'runtime_sha256': 'bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547', 'backend': 'stub', 'input_tokens': 1, 'output_tokens': 8, 'max_new_tokens': 33, 'queue_seconds': 0.00011245800124015659, 'generation_seconds': 0.012654750000365311, 'total_seconds': 0.012767208001605468}
+
+======================================================================
+FAIL: test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call) (body={'prompt': 'x', 'max_new_tokens': 100000})
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/tests_integration/test_service_http.py", line 84, in test_invalid_requests_rejected_without_backend_call
+    self.assertTrue(400 <= status < 500, f'{body} -> {status} {payload}')
+AssertionError: False is not true : {'prompt': 'x', 'max_new_tokens': 100000} -> 200 {'text': 'STUB ONLY: fixture-A [STUB ONLY — version A]', 'request_id': 'a56b2d2f-4e76-49a4-97ef-c6d5ac416157', 'model_id': 'fixture-A', 'release_id': 'eb66f6c66642f8cdce9031c01fcecc07dee9b460e651a6c8616e3f1b86a6c25c', 'runtime_sha256': 'bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547', 'backend': 'stub', 'input_tokens': 1, 'output_tokens': 8, 'max_new_tokens': 100000, 'queue_seconds': 0.00011191600060556084, 'generation_seconds': 0.012646208997466601, 'total_seconds': 0.012758124998072162}
+
+======================================================================
+FAIL: test_invalid_requests_rejected_without_backend_call (tests_integration.test_service_http.ServiceHttpTests.test_invalid_requests_rejected_without_backend_call)
+Дефект 7: неверный запрос получает 4xx до генерации; число вызовов backend не меняется.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/agvannahapetyan/Documents/Ревизия 07.07.26/Учеба/7 семестр/MLOps/mlops26-hw8-9-10/hw8910-broken/tests_integration/test_service_http.py", line 87, in test_invalid_requests_rejected_without_backend_call
+    self.assertEqual(svc.get('/debug')[1]['calls'], calls, 'неверный запрос вызвал backend')
+AssertionError: 2 != 0 : неверный запрос вызвал backend
+
+----------------------------------------------------------------------
+Ran 7 tests in 82.926s
+
+FAILED (failures=3)
+make: *** [check-integration] Error 1
+exit_code=2
+# восстановлено: git diff -- api.py (пусто = как в коммите)
+diff_exit=0

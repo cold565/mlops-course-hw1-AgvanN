@@ -1,0 +1,20 @@
+$ .venv/bin/python model_flow.py --role baseline
+accepted.json sha256 before: fe10895a2a0c9a414bfd4c04f424fc6764f077196d1b341f6248b77e9925b04f
+16:28:00.804 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8264
+See https://docs.prefect.io/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+16:28:01.911 | INFO    | Flow run 'immortal-alpaca' - Beginning flow run 'immortal-alpaca' for flow 'release-model'
+16:28:03.632 | INFO    | Task run 'describe-runtime-b72' - Finished in state Completed()
+16:28:03.634 | INFO    | Task run 'prepare-eval-inputs-91b' - Finished in state Cached(type=COMPLETED)
+CACHE_HIT b86a8277271e84ddc1a954b98380776b8aad7befec9833c7851b77eb3ab5c84a
+16:28:04.151 | INFO    | Task run 'fetch-artifact-4bc' - Finished in state Completed()
+16:28:04.153 | INFO    | Task run 'full-evaluation-382' - Finished in state Cached(type=COMPLETED)
+EVAL_CACHE_HIT prefect-7315dd9b-b18b-4982-8a10-a16377609ac5
+GATE PASS Qwen/Qwen3-0.6B@c1899de289a0 
+16:28:04.167 | INFO    | Task run 'quality-gate-c69' - Finished in state Completed()
+16:28:04.682 | INFO    | Task run 'publish-release-8bf' - Finished in state Completed()
+ALREADY_PUBLISHED Qwen/Qwen3-0.6B@c1899de289a0 a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa
+16:28:04.931 | INFO    | Flow run 'immortal-alpaca' - Finished in state Completed()
+16:28:04.943 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8264
+exit=0
+accepted.json sha256 after: fe10895a2a0c9a414bfd4c04f424fc6764f077196d1b341f6248b77e9925b04f
+publication events: 1
