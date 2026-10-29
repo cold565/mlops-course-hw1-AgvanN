@@ -1,6 +1,6 @@
 # Быстрые проверки работают без весов и без torch: uv sync --frozen (без --extra model).
 PYTHON ?= .venv/bin/python
-HW67 ?= ../../mlops26-hw6-7/hw67-broken
+HW67 ?= $(firstword $(wildcard ../hw6-7) ../../mlops26-hw6-7/hw67-broken)
 
 .PHONY: check check-public check-integration compile red-green install install-model \
         lab-demo serve-stub release-model serve-model smoke-model bench

@@ -1,46 +1,59 @@
 [
   {
-    "t": 0.21,
+    "t": 0.0,
     "method": "GET",
     "path": "health",
     "request": null,
     "status": 200,
     "response": {
       "alive": true,
-      "ready": false,
+      "ready": true,
       "load_error": null
     },
-    "client_seconds": 0.0054
+    "client_seconds": 0.0169
   },
   {
-    "t": 0.22,
+    "t": 0.02,
     "method": "GET",
     "path": "ready",
     "request": null,
-    "status": 503,
+    "status": 200,
     "response": {
-      "ready": false,
-      "error": null
+      "ready": true,
+      "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
+      "release_id": "a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa",
+      "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
+      "backend": "transformers"
     },
     "client_seconds": 0.0008
   },
   {
-    "t": 0.22,
+    "t": 0.28,
     "note": "запрос до готовности",
     "method": "POST",
     "path": "generate",
     "request": {
       "prompt": "Which planet has rings?"
     },
-    "status": 503,
+    "status": 200,
     "response": {
-      "ready": false,
-      "error": null
+      "text": "{\"answer\": \"PLANET\"}",
+      "request_id": "3913b82d-f00e-4cce-99bf-6dae3113b675",
+      "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
+      "release_id": "a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa",
+      "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
+      "backend": "transformers",
+      "input_tokens": 144,
+      "output_tokens": 8,
+      "max_new_tokens": 32,
+      "queue_seconds": 0.0007329590007429942,
+      "generation_seconds": 0.258522083000571,
+      "total_seconds": 0.259255042001314
     },
-    "client_seconds": 0.0008
+    "client_seconds": 0.2605
   },
   {
-    "t": 2.78,
+    "t": 0.28,
     "note": "готов",
     "method": "GET",
     "path": "ready",
@@ -65,7 +78,7 @@
     "status": 200,
     "response": {
       "text": "{\"answer\": \"C\"}",
-      "request_id": "d57cff13-a453-41c5-81e8-27a1dfc0fabd",
+      "request_id": "4f35dc10-5d66-4258-b797-8dfdc6d6947d",
       "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
       "release_id": "a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa",
       "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
@@ -73,11 +86,11 @@
       "input_tokens": 179,
       "output_tokens": 7,
       "max_new_tokens": 32,
-      "queue_seconds": 0.000520207999215927,
-      "generation_seconds": 0.20571708400166244,
-      "total_seconds": 0.20623729200087837
+      "queue_seconds": 0.0005664169984811451,
+      "generation_seconds": 0.20620687500195345,
+      "total_seconds": 0.2067732920004346
     },
-    "client_seconds": 0.2072
+    "client_seconds": 0.2076
   },
   {
     "note": "валидный запрос",
@@ -90,7 +103,7 @@
     "status": 200,
     "response": {
       "text": "{\"answer\": \"B\"}",
-      "request_id": "aff04fcb-a75f-4755-abfd-c6a5a1e26c49",
+      "request_id": "51e4c94c-beca-471f-ad92-61615f5b7eab",
       "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
       "release_id": "a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa",
       "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
@@ -98,11 +111,11 @@
       "input_tokens": 174,
       "output_tokens": 7,
       "max_new_tokens": 16,
-      "queue_seconds": 0.0003781669984164182,
-      "generation_seconds": 0.20537483299995074,
-      "total_seconds": 0.20575299999836716
+      "queue_seconds": 0.0005280829973344225,
+      "generation_seconds": 0.2085085420003452,
+      "total_seconds": 0.2090366249976796
     },
-    "client_seconds": 0.2066
+    "client_seconds": 0.21
   },
   {
     "note": "валидный запрос",
@@ -114,7 +127,7 @@
     "status": 200,
     "response": {
       "text": "{\"answer\": \"REFUSE\"}",
-      "request_id": "f578afe0-eb6f-4205-b325-e946e29ae8ab",
+      "request_id": "323ac28f-39bf-4dfe-b909-ef7d21c12bd9",
       "model_id": "Qwen/Qwen3-0.6B@c1899de289a0",
       "release_id": "a4da27f586f16c942e250f9577947e37e2f90d4bb951ff2bd3b23c9d3ddcdfaa",
       "runtime_sha256": "503e69ce03859910e6c2aa83c8b1406e42aef2c8533aae1494751933d10449d0",
@@ -122,11 +135,11 @@
       "input_tokens": 158,
       "output_tokens": 8,
       "max_new_tokens": 32,
-      "queue_seconds": 0.0003754169993044343,
-      "generation_seconds": 0.22396970800036797,
-      "total_seconds": 0.2243451249996724
+      "queue_seconds": 0.00041899999996530823,
+      "generation_seconds": 0.22685762499895645,
+      "total_seconds": 0.22727662499892176
     },
-    "client_seconds": 0.2252
+    "client_seconds": 0.2282
   },
   {
     "note": "неверный запрос: 4xx до генерации",
@@ -152,7 +165,7 @@
         }
       ]
     },
-    "client_seconds": 0.0011
+    "client_seconds": 0.0009
   },
   {
     "note": "неверный запрос: 4xx до генерации",
@@ -204,7 +217,7 @@
         }
       ]
     },
-    "client_seconds": 0.0005
+    "client_seconds": 0.0006
   },
   {
     "note": "неверный запрос: 4xx до генерации",
@@ -228,7 +241,7 @@
         }
       ]
     },
-    "client_seconds": 0.0006
+    "client_seconds": 0.0005
   },
   {
     "note": "неверный запрос: 4xx до генерации",
@@ -241,6 +254,6 @@
     "response": {
       "error": "prompt длиннее 512 токенов (1340)"
     },
-    "client_seconds": 0.0017
+    "client_seconds": 0.0019
   }
 ]

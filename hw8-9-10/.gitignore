@@ -14,3 +14,7 @@ release/cache/
 release/.prefect/
 release/eval-work/
 *.tmp
+
+# Журналы-доказательства хранятся в Git (корневой .gitignore исключает *.log)
+!evidence/**/*.log
+!evidence/*.log

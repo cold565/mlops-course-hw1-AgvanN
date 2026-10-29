@@ -13,7 +13,10 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-GOLDEN = Path(__file__).resolve().parents[1] / '../../mlops26-hw6-7/hw67-broken/data/eval/golden.jsonl'
+_ROOT = Path(__file__).resolve().parents[1]
+GOLDEN = next((p for p in (_ROOT / '../hw6-7/data/eval/golden.jsonl',
+                           _ROOT / '../../mlops26-hw6-7/hw67-broken/data/eval/golden.jsonl') if p.is_file()),
+              _ROOT / '../hw6-7/data/eval/golden.jsonl')
 
 
 def post(url, body, timeout):

@@ -48,7 +48,19 @@ class ArtifactUnavailable(ValueError):
 
 
 def hw67_root() -> Path:
-    return Path(os.environ.get('HW67_ROOT', HERE / '../../mlops26-hw6-7/hw67-broken')).resolve()
+    """HW67_ROOT; иначе соседняя папка репозитория курса (../hw6-7) или локальный проект ДЗ 6+7."""
+    if os.environ.get('HW67_ROOT'):
+        return Path(os.environ['HW67_ROOT']).resolve()
+    for candidate in (HERE / '../hw6-7', HERE / '../../mlops26-hw6-7/hw67-broken'):
+        if (candidate / 'evaluation/solution.py').is_file():
+            return candidate.resolve()
+    raise FileNotFoundError('Не найден проект ДЗ 6+7: задайте HW67_ROOT')
+
+
+def hw67_result(root: Path, name: str) -> Path:
+    """metrics/ ДЗ 6+7 не в Git; в репозитории лежит побайтная копия в reports/."""
+    path = root / 'metrics' / name
+    return path if path.is_file() else root / 'reports' / name
 
 
 @contextlib.contextmanager
@@ -140,7 +152,7 @@ def fetch_artifact(role: str, root: str, runtime: dict, protocol_sha256: str, go
     else:
         # Принятая (champion) версия ДЗ 6+7 с её evaluation run; candidate-model.json там позже
         # перезаписан другим run id при повторной проверке хранения, поэтому не используется.
-        spec = json.loads((root / 'metrics/released.json').read_text())['model']
+        spec = json.loads(hw67_result(root, 'released.json').read_text())['model']
         adapter_dir = Path(os.environ.get('HW8910_ADAPTER_DIR', HERE / 'models' / spec['run_id']))
         missing = [f for f in model_runtime.ADAPTER_FILES if not (adapter_dir / f).is_file()]
         if missing:
@@ -361,8 +373,8 @@ def model_release_flow(role: str = 'baseline', root: str = '', device: str = 'au
 
         if role == 'baseline':
             # Тот же базовый spec на runtime ДЗ 6+7: смена runtime не должна ухудшить качество.
-            reference = {'report_uri': str(Path(root) / 'metrics/baseline-eval.json'),
-                         'outputs_uri': str(Path(root) / 'metrics/baseline-outputs.json'),
+            reference = {'report_uri': str(hw67_result(Path(root), 'baseline-eval.json')),
+                         'outputs_uri': str(hw67_result(Path(root), 'baseline-outputs.json')),
                          'note': 'baseline ДЗ 6+7 (MLflow evaluation run 0c5e59f3…, CUDA, WSL)'}
         else:
             base_art = fetch_artifact('baseline', root, runtime, *hashes, str(out / 'manifests'))
