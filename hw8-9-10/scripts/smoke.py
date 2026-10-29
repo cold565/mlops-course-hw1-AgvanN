@@ -67,7 +67,11 @@ def main():
         short = {k: resp[k] for k in ('text', 'model_id', 'output_tokens', 'generation_seconds', 'error', 'ready', 'detail')
                  if isinstance(resp, dict) and k in resp}
         print(row['status'], row['path'], row.get('note', ''), json.dumps(short, ensure_ascii=False)[:200])
-    ok = (first_ready['status'] == 503 and early['status'] == 503
+    # 503 проверяется, только если smoke застал загрузку; иначе сервис уже был готов — это не ошибка.
+    loading_ok = early['status'] == 503 if first_ready['status'] == 503 else early['status'] == 200
+    if first_ready['status'] == 200:
+        print('NOTE: сервис уже был готов при старте smoke — 503 во время загрузки не наблюдался')
+    ok = (first_ready['status'] in (200, 503) and loading_ok
           and all(r['status'] == 200 for r in log if r.get('note') == 'валидный запрос')
           and all(400 <= r['status'] < 500 for r in log if r.get('note', '').startswith('неверный')))
     print('SMOKE', 'OK' if ok else 'FAIL')
