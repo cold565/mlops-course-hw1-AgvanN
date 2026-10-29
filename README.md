@@ -12,7 +12,8 @@
 | 4 | [hw4](hw4/) | Токенизация: маска лосса по промпту, left padding, обрезка, packing | [docs/defects.md](hw4/docs/defects.md) |
 | 5 | [hw5](hw5/) | LoRA-дообучение, сравнение вариантов, кривые обучения | [docs/compare.md](hw5/docs/compare.md), [docs/defects.md](hw5/docs/defects.md) |
 | 6+7 | [hw6-7](hw6-7/) | MLflow: 6 LoRA-runs, реестр, хранение; оценка ответов, golden set, quality gate | [docs/conclusion.md](hw6-7/docs/conclusion.md), [docs/defects.md](hw6-7/docs/defects.md) |
+| 8+9+10 | [hw8-9-10](hw8-9-10/) | Процесс выпуска (Prefect), gate и атомарная публикация, API (FastAPI), замер | [REPORT.md](hw8-9-10/REPORT.md), [defects.csv](hw8-9-10/defects.csv) |
 
 Модель во всех работах — `Qwen/Qwen3-0.6B`. Окружение: Python 3.12+, uv;
 для ДЗ 6+7 — Docker Compose (MLflow + Postgres), запуск на Windows через WSL
-(см. [hw6-7/docs/SUBMISSION.md](hw6-7/docs/SUBMISSION.md)).
+(см. [hw6-7/docs/SUBMISSION.md](hw6-7/docs/SUBMISSION.md)); ДЗ 8+9+10 — локально на macOS (MPS), см. [hw8-9-10/README.md](hw8-9-10/README.md).

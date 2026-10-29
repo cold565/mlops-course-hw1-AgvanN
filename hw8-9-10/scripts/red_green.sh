@@ -3,12 +3,14 @@
 # Использование: bash scripts/red_green.sh [ORIGINAL_COMMIT]
 set -u
 cd "$(dirname "$0")/.."
-ORIG=${1:-$(git rev-list --max-parents=0 HEAD)}
+# Исходный коммит ищется по сообщению: в репозитории курса первый коммит — не прототип.
+ORIG=${1:-$(git log --format=%h --grep='^Исходный прототип ДЗ 8+9+10' -n1)}
+PREFIX=$(git rev-parse --show-prefix)   # hw8-9-10/ в репозитории курса, пусто в отдельном
 PY=${PYTHON:-.venv/bin/python}
 OUT=evidence
 mkdir -p "$OUT"
 SRC=$(mktemp -d -t hw8910-original-XXXX)
-git archive "$ORIG" | tar -x -C "$SRC"
+git archive "$ORIG:$PREFIX" | tar -x -C "$SRC"
 {
   echo "# Исходный прототип: commit $ORIG -> $SRC"
   echo "# Тесты: tests_integration из $(git rev-parse --short HEAD) (+ рабочее дерево)"
