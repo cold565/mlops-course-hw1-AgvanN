@@ -1,0 +1,14 @@
+# План автоматизации. Удалённый запуск не выполнялся; merge этим файлом не защищён
+# (нужна branch protection с обязательной проверкой). Локальный эквивалент: make check.
+name: Fast release checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  fast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen --python 3.12   # без --extra model: ни torch, ни весов
+      - run: make check PYTHON=.venv/bin/python

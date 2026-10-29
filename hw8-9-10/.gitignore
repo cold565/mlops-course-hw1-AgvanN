@@ -8,3 +8,9 @@ models/
 *.bin
 *.pt
 .lab*/
+.prefect/
+.DS_Store
+release/cache/
+release/.prefect/
+release/eval-work/
+*.tmp

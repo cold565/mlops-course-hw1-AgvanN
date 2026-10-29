@@ -1,0 +1,23 @@
+[project]
+name = "mlops-hw8910"
+version = "0.1.0"
+description = "ДЗ 8+9+10: процесс выпуска (Prefect), gate и API (FastAPI)"
+requires-python = ">=3.12,<3.13"
+# Быстрые проверки: процесс и HTTP без весов и без torch.
+dependencies = [
+  "prefect==3.9.0",
+  "fastapi==0.150.0",
+  "uvicorn==0.54.0",
+]
+
+[project.optional-dependencies]
+# Реальная генерация: те же версии, что в ДЗ 6+7 (runtime оценки = runtime API).
+model = [
+  "torch==2.14.0",
+  "transformers==5.17.0",
+  "peft==0.21.0",
+  "safetensors==0.8.0",
+]
+
+[tool.uv]
+package = false
